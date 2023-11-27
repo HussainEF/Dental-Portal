@@ -32,13 +32,13 @@
                                 @if(!empty($casesDetail))
                                 @foreach($casesDetail as $key => $caseData)
                                 <tr>
-                                    <td>hhh</td>
-                                    <td>fff</td>
-                                    <td>{{$caseData['patient_email']}}</td>
-                                    <td></td>
-                                    <td>{{$caseData['dentist_case_present_status_id']}}</td>
-                                    <td></td>
-                                    @if($cardId == 1)<td>Yes</td>@endif
+                                    <td>{{($cardId == 1) ? $caseData['id'] : "11" }}</td>
+                                    <td>{{($cardId == 1) ? $caseData['patient'] : "Ali" }}</td>
+                                    <td>{{($cardId == 1) ? "" : $caseData['patient_email']}}</td>
+                                    <td>{{($cardId == 1) ? $caseData['impression_type'] : ""}}</td>
+                                    <td>{{($cardId == 1) ? "" : $caseData['dentist_case_present_status_id']}}</td>
+                                    <td>{{($cardId == 1) ? $caseData['receive_date'] : ""}}</td>
+                                    @if($cardId == 1)<td></td>@endif
                                 </tr>
                                 @endforeach
                                 @endif

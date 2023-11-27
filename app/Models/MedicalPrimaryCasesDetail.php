@@ -11,6 +11,7 @@ use App\Models\MedicalPrimaryCases;
 class MedicalPrimaryCasesDetail extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'id';
     protected $table = "tbl_application_medical_primary_cases_details";
     protected $fillable = [
         'id',
@@ -57,7 +58,7 @@ class MedicalPrimaryCasesDetail extends Model
 
     public function MedicalPrimaryCases(): BelongsTo
     {
-        return $this->belongsTo(MedicalPrimaryCases::class, 'id');
+        return $this->belongsTo(MedicalPrimaryCases::class, 'id', 'primary_case_id');
     }
 }
 

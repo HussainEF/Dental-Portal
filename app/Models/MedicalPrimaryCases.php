@@ -11,7 +11,8 @@ use App\Models\MedicalPrimaryCasesDetail;
 class MedicalPrimaryCases extends Model
 {
     use HasFactory;
-    protected $table="tbl_application_medical_primary_cases";
+    protected $primaryKey = 'id';
+    protected $table = "tbl_application_medical_primary_cases";
     protected $fillable=[
         'id',
         'case_id',
@@ -44,11 +45,11 @@ class MedicalPrimaryCases extends Model
         'airway_bill_number',	
         'description',	
         'RX_form',	
-        'RX_uploaded_by',//deleted	
+        // 'RX_uploaded_by',//deleted	
         'x_rays_opg',	
-        'OPG_uploaded_by',	//deleted
+        // 'OPG_uploaded_by',	//deleted
         'x_rays_ceph',	
-        'CEPH_uploaded_by',	//deleted
+        // 'CEPH_uploaded_by',	//deleted
         'file_assessment',	
         'stl_1',	
         'stl_2',	
@@ -82,38 +83,38 @@ class MedicalPrimaryCases extends Model
         'zero_aligner_required',	
         'is_doable',	
         'status',	
-        'approve_status',	//deleted
-        'present_case_stage_id',	//deleted
-        'hold',	//deleted
-        'ship',	//deleted
-        'parent_portal_id',	//deleted
-        'reboot_comments',	//deleted
-        'present_case_status_id',//deleted
-        'dentist_id',//deleted
-        'dentist_case_present_status_id',//deleted
-        'patient_email',	//deleted
-        'patient_state',	//deleted
-        'patient_country',//deleted
-        'patient_city',	//deleted
-        'patient_zip_code',	//deleted
-        'patient_phone',	//deleted
-        'patient_address_1',	//deleted
-        'patient_address_2',	//deleted
-        'patient_address_3',	//deleted
-        'instalment',	//deleted
-        'treatment_type',	//deleted
-        'allergies',	//deleted
-        'pregnant',	//deleted
-        'sale_kit',	//deleted
-        'full_case_purchase',//deleted	
-        'retainer_only',	//deleted
-        'imression_received_in_CP',//deleted
-        'terms_conditions',	//deleted
-        'chief_complaint',//deleted
+        // 'approve_status',	//deleted
+        // 'present_case_stage_id',	//deleted
+        // 'hold',	//deleted
+        // 'ship',	//deleted
+        // 'parent_portal_id',	//deleted
+        // 'reboot_comments',	//deleted
+        // 'present_case_status_id',//deleted
+        // 'dentist_id',//deleted
+        // 'dentist_case_present_status_id',//deleted
+        // 'patient_email',	//deleted
+        // 'patient_state',	//deleted
+        // 'patient_country',//deleted
+        // 'patient_city',	//deleted
+        // 'patient_zip_code',	//deleted
+        // 'patient_phone',	//deleted
+        // 'patient_address_1',	//deleted
+        // 'patient_address_2',	//deleted
+        // 'patient_address_3',	//deleted
+        // 'instalment',	//deleted
+        // 'treatment_type',	//deleted
+        // 'allergies',	//deleted
+        // 'pregnant',	//deleted
+        // 'sale_kit',	//deleted
+        // 'full_case_purchase',//deleted	
+        // 'retainer_only',	//deleted
+        // 'imression_received_in_CP',//deleted
+        // 'terms_conditions',	//deleted
+        // 'chief_complaint',//deleted
     ];
 
     public function MedicalPrimaryCasesDetail(): HasMany
     {
-        return $this->hasMany(MedicalPrimaryCasesDetail::class, 'primary_case_id')->where();
+        return $this->hasMany(MedicalPrimaryCasesDetail::class, 'primary_case_id', 'id');
     }
 }
