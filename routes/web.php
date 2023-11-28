@@ -45,6 +45,7 @@ Route::get('logout', function(){
 Route::group(['middleware' => 'auth'], function () {
     // Routes For Cases
     Route::get('case-add', 'CaseController@caseAdd');
+    Route::post('case-save', 'CaseController@caseSave');
     Route::get('dashboard', 'CaseController@casesDashboard');
 
     // Routes for Patients 

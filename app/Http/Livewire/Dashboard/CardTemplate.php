@@ -13,14 +13,12 @@ class CardTemplate extends Component
         'cardId'
     ];
 
-    public $caseStagesTitle;
     public $casesDetail;
     public $cardId = 1;
 
     //Geting Data from Child Component by using Event Listner
     public function casesDetail($value){
         $this->casesDetail = $value;
-        
     }
 
     public function cardId($value){
@@ -34,7 +32,8 @@ class CardTemplate extends Component
 
     public function render()
     { 
-        $this->caseStagesTitle = $this->fetchCaseStatus();
-        return view('livewire.dashboard.card-template');
+        return view('livewire.dashboard.card-template', [
+            'caseStagesTitle' => $this->fetchCaseStatus()
+        ]);
     }
 }
