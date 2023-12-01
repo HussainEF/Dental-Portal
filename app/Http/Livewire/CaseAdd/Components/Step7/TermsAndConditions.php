@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\CaseAdd;
+namespace App\Http\Livewire\CaseAdd\Components\Step7;
 
 use Livewire\Component;
 
@@ -12,9 +12,8 @@ class TermsAndConditions extends Component
     {
         $this->termsCondition = !$this->termsCondition;
     }
-
     public function render()
     {
-        return view('livewire.case-add.terms-and-conditions');
+        return view('livewire.case-add.components.step7.terms-and-conditions');
     }
 }

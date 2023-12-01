@@ -1,4 +1,5 @@
 <div class="row">
+    <label for="">Nature Of Patient: <span>*</span></label>
     <div class="col-md-6 form-group d-flex align-items-baseline">
         <input type="radio" id="Option_3" name="nature_of_patient" value="1" class="me-2" wire:model="adjunctiveProcedure">
         <label for="Option_3">Overseas</label>
@@ -7,6 +8,8 @@
         <input type="radio" id="Option_4" name="nature_of_patient" value="0" class="me-2" wire:model="adjunctiveProcedure">
         <label for="Option_4">Local</label>
     </div>
+    @error('adjunctiveProcedure') <span class="text-danger">{{ $message }}</span> @enderror
+
     @if($adjunctiveProcedure == 1)
     <div class="col-md-12">
         <div class="form-group d-flex align-items-baseline">

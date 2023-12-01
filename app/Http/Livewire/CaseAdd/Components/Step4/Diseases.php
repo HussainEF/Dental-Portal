@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\CaseAdd;
+namespace App\Http\Livewire\CaseAdd\Components\Step4;
 
 use Livewire\Component;
 use App\Models\SetupDisease;
@@ -19,7 +19,7 @@ class Diseases extends Component
     }
     public function render()
     {
-        return view('livewire.case-add.diseases', [
+        return view('livewire.case-add.components.step4.diseases', [
             'diseasesList' => SetupDisease::where(['publish_status' => 9, 'is_deleted' => 42])->get(['id', 'name'])
         ]);
     }

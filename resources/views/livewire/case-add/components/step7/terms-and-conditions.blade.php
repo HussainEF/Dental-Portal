@@ -300,14 +300,4 @@
             </div>
         </div>
     </div>
-    @if($termsCondition)
-        <script>
-            // Livewire Hook
-            document.addEventListener('livewire:load', function () {
-                Livewire.hook('message.processed', function () {
-                    $('#termsConditionsModal').modal('show');
-                });
-            });
-        </script>
-    @endif
 </div>

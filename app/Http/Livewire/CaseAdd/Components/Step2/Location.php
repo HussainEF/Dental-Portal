@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\CaseAdd;
+namespace App\Http\Livewire\CaseAdd\Components\Step2;
 
 use Livewire\Component;
 use App\Models\SetupCountry;
@@ -18,7 +18,7 @@ class Location extends Component
     }
     public function render()
     {
-        return view('livewire.case-add.location', [
+        return view('livewire.case-add.components.step2.location', [
             'country' => SetupCountry::where(['id'=> 168])->orderby('name', 'asc')->get(['id', 'name']),
             'city' => SetupCity::orderBy('name', 'asc')->get(['id', 'name'])
         ]);

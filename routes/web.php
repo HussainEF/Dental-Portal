@@ -40,12 +40,15 @@ Route::get('logout', function(){
     Auth::logout();
     return redirect('login');
 });
-
 //Grouping route and Apply Auth Middleware to ensure only Authurized User Can access these routes...
 Route::group(['middleware' => 'auth'], function () {
     // Routes For Cases
+    Route::post('/case-save', 'CaseController@caseSave');
+    // Route::post('/case-save', function(){
+    //     return view('welcome');
+    // });
+
     Route::get('case-add', 'CaseController@caseAdd');
-    Route::post('case-save', 'CaseController@caseSave');
     Route::get('dashboard', 'CaseController@casesDashboard');
 
     // Routes for Patients 
