@@ -6,11 +6,6 @@ use Livewire\Component;
 
 class Step1 extends Component
 {
-    public function render()
-    {
-        return view('livewire.case-add.components.step1.step1');
-    }
-
     protected $listeners = [
         'step1Validation'
     ]; 
@@ -57,5 +52,10 @@ class Step1 extends Component
     //    dd($this->step1Data);
 
        $this->emit('step1Validated');
+    }
+
+    public function render()
+    {
+        return view('livewire.case-add.components.step1.step1');
     }
 }

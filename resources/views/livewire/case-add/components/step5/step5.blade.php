@@ -49,7 +49,7 @@
             <div class="mb-3">
                 <label for="ankylosed_deciduous_teeth">IMPACTED / MISSING / ANKYLOSED / DECIDUOUS TEETH</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="ankylosed_deciduous_teeth" id="ankylosed_deciduous_teeth">
+                    <input type="text" class="form-control" name="ankylosed_deciduous_teeth" id="ankylosed_deciduous_teeth" wire:model="impactedTeeth">
                     <small class="danger"><strong>(These teeth might not be suitable for EBT, Attachments, Movement etc)</strong></small>
                 </div>
             </div>
@@ -62,11 +62,11 @@
                     <label>Does the patient have any crowns/RCT treated teeth?<span class="danger"> *</span></label><br>
                     <div class="form-group d-flex">
                         <div class="form-group d-flex align-items-baseline me-2">
-                            <input name="dental_history_rct" value="" id="dental_history_rct_yes" type="radio" class="me-2">
+                            <input name="dental_history_rct" value="" id="dental_history_rct_yes" type="radio" class="me-2" wire:model="crownRCT">
                             <label for="dental_history_rct_yes">Yes</label>
                         </div>
                         <div class="form-group d-flex align-items-baseline me-2">
-                            <input name="dental_history_rct" value="" id="dental_history_rct_no" type="radio" class="me-2">
+                            <input name="dental_history_rct" value="" id="dental_history_rct_no" type="radio" class="me-2" wire:model="crownRCT">
                             <label for="dental_history_rct_no">No</label>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                                     <tr>
                                         @for($i=8; $i>=1; $i--)
                                             <td class="TR_CRCT_TMQ2_{{$i}}">
-                                                <input id="CRCT_TMQ2_{{$i}}" name="CRCT_TMQ2[]" value="{{$i}}" type="checkbox">
+                                                <input id="CRCT_TMQ2_{{$i}}" name="CRCT_TMQ2[]" value="{{$i}}" type="checkbox" wire:model="crctTmq2">
                                                 <label for="CRCT_TMQ2_{{$i}}" style="padding-left:0px; line-height: 0px;">&nbsp;</label>
                                             </td>
                                         @endfor
@@ -104,7 +104,7 @@
                                     <tr>
                                         @for($i=1; $i<=8; $i++)
                                             <td class="TR_CRCT_TMQ1_{{$i}}">
-                                                <input id="CRCT_TMQ1_{{$i}}" name="CRCT_TMQ1[]" value="{{$i}}" type="checkbox">
+                                                <input id="CRCT_TMQ1_{{$i}}" name="CRCT_TMQ1[]" value="{{$i}}" type="checkbox" wire:model="crctTmq1">
                                                 <label title="Teeth Movement" for="CRCT_TMQ1_{{$i}}" style="padding-left:0px; line-height: 0px;">&nbsp;</label>
                                             </td>
                                         @endfor
@@ -123,7 +123,7 @@
                                     <tr>
                                         @for($i=8; $i>=1; $i--)     
                                             <td class="TR_CRCT_TMQ3_{{$i}}">
-                                                <input id="CRCT_TMQ3_{{$i}}" name="CRCT_TMQ3[]" value="{{$i}}" type="checkbox">
+                                                <input id="CRCT_TMQ3_{{$i}}" name="CRCT_TMQ3[]" value="{{$i}}" type="checkbox" wire:model="crctTmq3">
                                                 <label for="CRCT_TMQ3_{{$i}}" style="padding-left:0px; line-height: 0px;">&nbsp;</label>
                                             </td>  
                                         @endfor
@@ -140,7 +140,7 @@
                                     <tr>
                                         @for($i=1; $i<=8; $i++)
                                             <td class="TR_CRCT_TMQ4_{{$i}}">
-                                                <input id="CRCT_TMQ4_{{$i}}" name="CRCT_TMQ4[]" value="{{$i}}" type="checkbox">
+                                                <input id="CRCT_TMQ4_{{$i}}" name="CRCT_TMQ4[]" value="{{$i}}" type="checkbox" wire:model="crctTmq4">
                                                 <label for="CRCT_TMQ4_{{$i}}" style="padding-left:0px; line-height: 0px;">&nbsp;</label>
                                             </td>
                                         @endfor
@@ -160,7 +160,7 @@
                     <label>Does the patient have any restorations/veneers?<span class="danger"> *</span></label>
                     <div class="form-group d-flex">
                         <div class="form-group d-flex align-items-baseline me-2">
-                            <input name="dental_history_restorations" value="" id="dental_history_restorations_yes" type="radio" class="me-2">
+                            <input name="dental_history_restorations" value="" id="dental_history_restorations_yes" type="radio" class="me-2" wire:model="restorationsVeneers">
                             <label for="dental_history_restorations_yes">Yes</label>
                         </div>
                         <div class="form-group d-flex align-items-baseline me-2">
@@ -186,7 +186,7 @@
                                         <tr>
                                             @for($i=8; $i>=1; $i--)
                                                 <td class="TR_RV_TMQ2_{{$i}}">
-                                                    <input id="RV_TMQ2_{{$i}}" name="RV_TMQ2[]" value="{{$i}}" type="checkbox">
+                                                    <input id="RV_TMQ2_{{$i}}" name="RV_TMQ2[]" value="{{$i}}" type="checkbox" wire:model="rvTmq2">
                                                     <label for="RV_TMQ2_{{$i}}">&nbsp;</label>
                                                 </td>
                                             @endfor
@@ -203,7 +203,7 @@
                                         <tr>
                                             @for($i=1; $i<=8; $i++)
                                                 <td height="24" class="TR_RV_TMQ1_{{$i}}">
-                                                    <input id="RV_TMQ1_{{$i}}" name="RV_TMQ1[]" value="{{$i}}" type="checkbox">
+                                                    <input id="RV_TMQ1_{{$i}}" name="RV_TMQ1[]" value="{{$i}}" type="checkbox" wire:model="rvTmq1">
                                                     <label title="Teeth Movement" for="RV_TMQ1_{{$i}}">&nbsp;</label>
                                                 </td>
                                             @endfor
@@ -222,7 +222,7 @@
                                         <tr>
                                             @for($i=8; $i>=1; $i--)
                                                 <td height="24" class="TR_RV_TMQ3_{{$i}}">
-                                                    <input id="RV_TMQ3_{{$i}}" name="RV_TMQ3[]" value="{{$i}}" type="checkbox">
+                                                    <input id="RV_TMQ3_{{$i}}" name="RV_TMQ3[]" value="{{$i}}" type="checkbox" wire:model="rvTmq3">
                                                     <label for="RV_TMQ3_{{$i}}">&nbsp;</label>
                                                 </td>  
                                             @endfor
@@ -239,7 +239,7 @@
                                         <tr>
                                             @for($i=1; $i<=8; $i++)
                                                 <td class="TR_RV_TMQ4_{{$i}}">
-                                                    <input id="RV_TMQ4_{{$i}}" name="RV_TMQ4[]" value="{{$i}}" type="checkbox">
+                                                    <input id="RV_TMQ4_{{$i}}" name="RV_TMQ4[]" value="{{$i}}" type="checkbox" wire:model="rvTmq4">
                                                     <label for="RV_TMQ4_{{$i}}">&nbsp;</label>
                                                 </td>
                                             @endfor
@@ -260,11 +260,11 @@
                     <label>Does the patient have any bridges/implants?<span class="danger"> *</span></label>
                     <div class="form-group d-flex">
                         <div class="form-group d-flex align-items-baseline me-2">
-                            <input name="dental_history_implants" value="" id="dental_history_implants_yes" type="radio" class="me-2">
+                            <input name="dental_history_implants" value="" id="dental_history_implants_yes" type="radio" class="me-2" wire:mode="bridgesImplants"> 
                             <label for="dental_history_implants_yes">Yes</label>
                         </div>
                         <div class="form-group d-flex align-items-baseline me-2">
-                            <input name="dental_history_implants" value="" id="dental_history_implants_no" type="radio" class="me-2">
+                            <input name="dental_history_implants" value="" id="dental_history_implants_no" type="radio" class="me-2" wire:mode="bridgesImplants">
                             <label for="dental_history_implants_no">No</label>
                         </div>
                     </div>
@@ -286,7 +286,7 @@
                                         <tr>
                                             @for($i=8; $i>=1; $i--)
                                                 <td class="TR_BI_TMQ2_{{$i}}">
-                                                    <input id="BI_TMQ2_{{$i}}" name="BI_TMQ2[]" value="{{$i}}" type="checkbox">
+                                                    <input id="BI_TMQ2_{{$i}}" name="BI_TMQ2[]" value="{{$i}}" type="checkbox" wire:model="biTmq2">
                                                     <label for="BI_TMQ2_{{$i}}">&nbsp;</label>
                                                 </td>
                                             @endfor
@@ -303,7 +303,7 @@
                                         <tr>
                                             @for($i=1; $i<=8; $i++)
                                                 <td class="TR_BI_TMQ1_{{$i}}">
-                                                    <input id="BI_TMQ1_{{$i}}" name="BI_TMQ1[]" value="{{$i}}" class="chk-col-purple TM" type="checkbox">
+                                                    <input id="BI_TMQ1_{{$i}}" name="BI_TMQ1[]" value="{{$i}}" class="chk-col-purple TM" type="checkbox" wire:model="biTmq1">
                                                     <label title="Teeth Movement" for="BI_TMQ1_{{$i}}">&nbsp;</label>
                                                 </td> 
                                             @endfor
@@ -322,7 +322,7 @@
                                         <tr>
                                             @for($i=8; $i>=1; $i--)       
                                                 <td class="TR_BI_TMQ3_{{$i}}">
-                                                    <input id="BI_TMQ3_{{$i}}" name="BI_TMQ3[]" value="{{$i}}" type="checkbox">
+                                                    <input id="BI_TMQ3_{{$i}}" name="BI_TMQ3[]" value="{{$i}}" type="checkbox" wire:model="biTmq3">
                                                     <label for="BI_TMQ3_{{$i}}">&nbsp;</label>
                                                 </td>   
                                             @endfor
@@ -339,7 +339,7 @@
                                         <tr>
                                             @for($i=1; $i<=8; $i++)
                                                 <td class="TR_BI_TMQ4_{{$i}}">
-                                                    <input id="BI_TMQ4_{{$i}}" name="BI_TMQ4[]" value="{{$i}}" type="checkbox">
+                                                    <input id="BI_TMQ4_{{$i}}" name="BI_TMQ4[]" value="{{$i}}" type="checkbox" wire:model="biTmq4">
                                                     <label for="BI_TMQ4_{{$i}}">&nbsp;</label>
                                                 </td>
                                             @endfor
@@ -353,8 +353,5 @@
             </div>
         </div>
     </div>
-    <!-- <div class="row d-flex justify-content-center">
-        <button type="button" class="col-md-2 btn btn-outline-primary form-wizard-previous-btn me-3"><i class="fa-solid fa-circle-arrow-left fa-lg"></i> Previous</button>
-        <button type="button" class="col-md-2 btn btn-outline-primary form-wizard-next-btn" wire:click="step5Validation">Next <i class="fa-solid fa-circle-arrow-right fa-lg"></i></button>
-    </div> -->
+    <!-- ll -->
 </fieldset>
