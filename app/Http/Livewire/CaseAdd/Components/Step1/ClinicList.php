@@ -7,6 +7,17 @@ use Livewire\Component;
 
 class ClinicList extends Component
 {
+    public $clinic;
+    public $selectedClinic;
+
+    public function mount(){
+        $this->selectedClinic = $this->clinic;
+    }
+
+    public function updatedSelectedClinic(){
+        $this->emit('clinic', $this->selectedClinic);
+    }
+
     public function render()
     {
         return view('livewire.case-add.components.step1.clinic-list', [

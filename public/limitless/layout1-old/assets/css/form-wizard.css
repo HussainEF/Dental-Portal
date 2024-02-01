@@ -1,0 +1,46 @@
+.progress-bar {
+  display: flex;
+  align-items: center;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  z-index: 1; /* Ensure the circle is above the line */
+}
+
+.step-name {
+  margin-left: 10px;
+}
+
+.line {
+  height: 2px;
+  flex: 1;
+  margin: 0 5px;
+  background-color: #ccc; /* Set your desired line color */
+  z-index: 0; /* Ensure the line is behind the circle */
+}
+
+/* Dynamic styles for completion */
+.step.active .circle {
+  background-color: #007bff; /* Set your desired active circle color */
+  color: #fff; /* Set your desired active circle text color */
+}
+
+.step.active + .line {
+  background-color: #007bff; /* Set your desired active line color */
+}

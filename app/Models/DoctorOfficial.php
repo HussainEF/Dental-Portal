@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use App\Models\MedicalSetupDoctors;
 
 class DoctorOfficial extends Authenticatable
 {
     use HasFactory;
     protected $table="tbl_application_doctor_officials";
+    public $timestamps = false;
     protected $primaryKey = "id";
 
     protected $fillable = [
@@ -27,8 +28,8 @@ class DoctorOfficial extends Authenticatable
         'created_by',
     ];
 
-    public function MyOrganizationTeam(): BelongsTo 
+    public function MedcialSetupDoctors(): BelongsTo 
     {
-        return $this->belongsTo(MyOrganizationTeam::class, 'id');
+        return $this->belongsTo(MedicalSetupDoctors::class, 'doctor_id', 'id');
     }
 }

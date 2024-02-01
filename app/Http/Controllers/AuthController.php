@@ -6,9 +6,8 @@ use Validator, Redirect, Response;
 
 //Models
 use App\Models\DoctorOfficial;
-use App\Models\MedicalTeamRoles;
-use App\Models\HR;
-use App\Models\MyOrganizationTeam;
+use App\Models\MedicalSetupDoctors;
+use App\Models\MedicalSetupDoctorsDetail;
 
 //Facades
 use Illuminate\Support\Facades\Session;
@@ -22,37 +21,43 @@ class AuthController extends Controller
             'email' => ['required'],
             'password' => ['required'],
         ]);
-        
+        // dd($credentials);
         $user = DoctorOfficial::where('code', $request->email)
                                 ->orwhere('email', $request->email)
-                                ->orwhere('username', $request->email)->first(['id', 'email', 'code', 'password']);
+                                ->orwhere('username', $request->email)->first();
         $md5Password = md5(md5($request->password));
+        // dd($user->password, $md5Password);
 
         if(!empty($user)){
             if($md5Password == $user->password){
                 Auth::login($user);
-                $result = $this->getDataForSession();
-                // print_r($result);
-                // dd($result);
-                // dd(Session::all());
-                return redirect()->intended('dashboard');
+                $doctorId = $user->doctor_id;
+                if($this->getDataForSession($doctorId)){
+                    $defaultPasswordHash = "14e1b600b1fd579f47433b88e8d85291";
+                    if($user->password == $defaultPasswordHash){
+                        return redirect()->intended('change-password');
+                    }else{
+                        return redirect()->intended('dashboard');
+                    }
+                }
             }
         }
-        return Redirect::to("login")->withSuccess('Oppoes! You have enteren worng email or password');
+        return Redirect::to("login")->withErrors(['login' => 'Invalid Credentials!']);
     }
 
-    public function getDataForSession(){
-        $accountId = Auth::id();
-        $sessionData = MyOrganizationTeam::whereHas('DoctorOfficial', function ($query) use ($accountId) {
-            $query->where(['id'=> 1097, 'is_deleted'=> 42]);
-        })->with(['DoctorOfficial' => function ($query) use ($accountId){
-            $query->select('id as accountID', 'doctor_id as teamID', 'company', 'account_status as accountStatus');
-        },'MedicalTeamRoles' => function ($query){
-            $query->select('role_id as roleID');
-        }, 'HR' => function ($query){
-            $query->select('name as temMemberName', 'photo as temMemberPhoto');
-        }])->get('HR_id as teamMemberHRID','organization_id as teamMemberOrganizationID');
-        return $sessionData->count();
+    public function getDataForSession($doctorId){
+        $doctorData = MedicalSetupDoctors::with(['DoctorOfficial'])->whereHas('DoctorOfficial', function ($query) use($doctorId) {
+            $query->where(['doctor_id'=> $doctorId, 'is_deleted'=> 42]);
+        })->first();
+        session([
+            'doctorId' => $doctorData->id,
+            'doctorName' => $doctorData->name,
+        ]);
+        return true;
+    }
+
+
+    public function changePassword(){
+        return view('cases.change_password');
     }
 }
-// SELECT account.id AS accountID, account.doctor_id AS teamID, account.company AS company, account.account_status AS accountStatus, organizationTeam.HR_id AS teamMemberHRID, organizationTeam.organization_id AS teamMemberOrganizationID, HR.name AS temMemberName, HR.photo AS temMemberPhoto, teamOfficialRoles.role_id AS roleID FROM tbl_application_doctor_officials AS account LEFT JOIN tbl_application_my_organization_team AS organizationTeam ON organizationTeam.id = account.team_id LEFT JOIN tbl_application_hr AS HR ON organizationTeam.HR_id = HR.id LEFT JOIN tbl_application_medical_team_roles AS teamOfficialRoles ON teamOfficialRoles.team_id = organizationTeam.id WHERE account.id = 11 AND account.is_deleted = 42

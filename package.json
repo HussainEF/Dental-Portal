@@ -14,5 +14,10 @@
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"
+    },
+    "dependencies": {
+        "dropzone": "^6.0.0-beta.2",
+        "lightbox2": "^2.11.4",
+        "signature_pad": "^4.1.7"
     }
 }

@@ -14,4 +14,7 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
-    ]);
+    ])
+    .copy('node_modules/signature_pad/dist/signature_pad.min.js', 'public/js/singature_pad.min.js')
+    .copy('node_modules/signature_pad/docs/css/signature-pad.css', 'public/css/signature-pad.css');
+ 

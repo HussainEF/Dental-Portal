@@ -1,47 +1,47 @@
 <fieldset class="wizard-fieldset {{$currentStep != 5 ? 'd-none':'show'}}">
-    <h6>Dental History</h6>
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-4">
                     <div class="mb-3">
-                        <input id="gingivits_checkbox" name="gingivits" class="me-2" value="" type="checkbox">
+                        <input id="gingivits_checkbox" name="gingivits" class="me-2" type="checkbox" value="gingivitis" wire:model="dentalHistory">
                         <label for="gingivits_checkbox">GINGIVITIS</label>
                     </div>                                            
                 </div>
                 <div class="col-md-4">
                     <div class="mb-3">
-                        <input id="recession_checkbox" name="recession" class="me-2" value="" type="checkbox">
+                        <input id="recession_checkbox" name="recession" class="me-2" type="checkbox" value="recession" wire:model="dentalHistory">
                         <label for="recession_checkbox">RECESSION</label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="mb-3">
-                        <input id="mobility_checkbox" name="mobility" class="me-2" value="" type="checkbox">
+                        <input id="mobility_checkbox" name="mobility" class="me-2" type="checkbox" value="mobility" wire:model="dentalHistory">
                         <label for="mobility_checkbox">MOBILITY</label>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="mb-3">
-                        <input id="bone_loss_checkbox" name="bone_loss" class="me-2" value="" type="checkbox">
+                    <div class="">
+                        <input id="bone_loss_checkbox" name="bone_loss" class="me-2" type="checkbox" value="boneLoss" wire:model="dentalHistory">
                         <label for="bone_loss_checkbox">BONE LOSS</label>
                     </div>                                            
                 </div>
                 <div class="col-md-4">
-                    <div class="mb-3">
-                        <input id="tmj_issues_checkbox" name="tmj_issues" class="me-2" value="" type="checkbox">
+                    <div class="">
+                        <input id="tmj_issues_checkbox" name="tmj_issues" class="me-2" type="checkbox" value="tmjIssues" wire:model="dentalHistory">
                         <label for="tmj_issues_checkbox">TMJ ISSUES</label>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="mb-3">
-                        <input id="dental_history_none_checkbox" name="dental_history_none" class="me-2" value="" type="checkbox">
+                    <div class="">
+                        <input id="dental_history_none_checkbox" name="dental_history_none" class="me-2" type="checkbox" value="dentalHistoryNone" wire:model="dentalHistory">
                         <label for="dental_history_none_checkbox">NONE</label>
                     </div>
                 </div>
             </div>
+            @error('dentalHistory') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
     </div>
     <div class="row">
@@ -49,7 +49,7 @@
             <div class="mb-3">
                 <label for="ankylosed_deciduous_teeth">IMPACTED / MISSING / ANKYLOSED / DECIDUOUS TEETH</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="ankylosed_deciduous_teeth" id="ankylosed_deciduous_teeth" wire:model="impactedTeeth">
+                    <input type="text" class="form-control" name="ankylosed_deciduous_teeth" id="ankylosed_deciduous_teeth" wire:model="ankylosedTeeth">
                     <small class="danger"><strong>(These teeth might not be suitable for EBT, Attachments, Movement etc)</strong></small>
                 </div>
             </div>
@@ -62,14 +62,15 @@
                     <label>Does the patient have any crowns/RCT treated teeth?<span class="danger"> *</span></label><br>
                     <div class="form-group d-flex">
                         <div class="form-group d-flex align-items-baseline me-2">
-                            <input name="dental_history_rct" value="" id="dental_history_rct_yes" type="radio" class="me-2" wire:model="crownRCT">
+                            <input name="dental_history_rct" id="dental_history_rct_yes" type="radio" class="me-2" value="{{HARD_CODE_ID_YES}}" wire:model="crownRCT">
                             <label for="dental_history_rct_yes">Yes</label>
                         </div>
                         <div class="form-group d-flex align-items-baseline me-2">
-                            <input name="dental_history_rct" value="" id="dental_history_rct_no" type="radio" class="me-2" wire:model="crownRCT">
+                            <input name="dental_history_rct" id="dental_history_rct_no" type="radio" class="me-2" value="{{HARD_CODE_ID_NO}}" wire:model="crownRCT">
                             <label for="dental_history_rct_no">No</label>
                         </div>
                     </div>
+                    @error('crownRCT') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
             </div>
             <div class="row">
@@ -160,13 +161,14 @@
                     <label>Does the patient have any restorations/veneers?<span class="danger"> *</span></label>
                     <div class="form-group d-flex">
                         <div class="form-group d-flex align-items-baseline me-2">
-                            <input name="dental_history_restorations" value="" id="dental_history_restorations_yes" type="radio" class="me-2" wire:model="restorationsVeneers">
+                            <input name="dental_history_restorations" id="dental_history_restorations_yes" type="radio" class="me-2" value="{{HARD_CODE_ID_YES}}" wire:model="restorationsVeneers">
                             <label for="dental_history_restorations_yes">Yes</label>
                         </div>
                         <div class="form-group d-flex align-items-baseline me-2">
-                            <input name="dental_history_restorations" value="" id="dental_history_restorations_no" type="radio" class="me-2">
+                            <input name="dental_history_restorations" id="dental_history_restorations_no" type="radio" class="me-2" value="{{HARD_CODE_ID_NO}}" wire:model="restorationsVeneers">
                             <label for="dental_history_restorations_no">No</label>
                         </div>
+                        @error('restorationsVeneers') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 </div>
             </div>
@@ -260,14 +262,15 @@
                     <label>Does the patient have any bridges/implants?<span class="danger"> *</span></label>
                     <div class="form-group d-flex">
                         <div class="form-group d-flex align-items-baseline me-2">
-                            <input name="dental_history_implants" value="" id="dental_history_implants_yes" type="radio" class="me-2" wire:mode="bridgesImplants"> 
+                            <input name="dental_history_implants" id="dental_history_implants_yes" type="radio" class="me-2" value="{{HARD_CODE_ID_YES}}" wire:model="bridgesImplants"> 
                             <label for="dental_history_implants_yes">Yes</label>
                         </div>
                         <div class="form-group d-flex align-items-baseline me-2">
-                            <input name="dental_history_implants" value="" id="dental_history_implants_no" type="radio" class="me-2" wire:mode="bridgesImplants">
+                            <input name="dental_history_implants" id="dental_history_implants_no" type="radio" class="me-2" value="{{HARD_CODE_ID_NO}}" wire:model="bridgesImplants">
                             <label for="dental_history_implants_no">No</label>
                         </div>
                     </div>
+                    @error('bridgesImplants') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
             </div>
             <div class="row">
@@ -353,5 +356,4 @@
             </div>
         </div>
     </div>
-    <!-- ll -->
 </fieldset>
