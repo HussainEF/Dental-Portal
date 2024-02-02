@@ -46,7 +46,6 @@ class HR extends Model
 		'deleted_by_reference_table',
 		'deleted'
     ];
-
     public function MyOrganizationTeam(): HasOne
     {
         return $this->hasOne(MyOrganizationTeam::class, 'HR_id');
