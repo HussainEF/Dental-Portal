@@ -3,22 +3,23 @@
         <div class="col-md-6">
             <div class="mb-3">
                 <label for="country">Country</label>
-                <select name="country" class="form-select">
+                <select name="country" class="form-select" wire:model="selectedCountry">
                     @foreach($country as $countryName)
-                    <option value="{{$countryName->id}}">{{$countryName->name}}</option>
+                        <option value="{{$countryName->id}}">{{$countryName->name}}</option>
                     @endforeach
                 </select>
             </div>
         </div>
         <div class="col-md-6">
             <div class="mb-3">
-                <label for="city">City</label>
+                <label for="city">City <span class="text-danger"> *</span></label>
                 <select name="city" id="city" class="form-select" wire:model="selectedCity" wire:change="updateArea">
                     <option value="">Select a City</option>
                     @foreach($city as $cityName)
                     <option value="{{$cityName->id}}">{{$cityName->name}}</option>
                     @endforeach
                 </select>
+                @error('selectedCity') <span class="text-danger">{{ $message }}</span> @enderror              
             </div>
         </div>
     </div>

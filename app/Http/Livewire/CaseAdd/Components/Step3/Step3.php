@@ -3,40 +3,34 @@
 namespace App\Http\Livewire\CaseAdd\Components\Step3;
 
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
+use Illuminate\Support\Facades\Storage;
 
 class Step3 extends Component
 {
-    use WithFileUploads;
-
+    //Step-3 Data Attributes
+    public $step3Data;
+    public $chiefComplaint;
     protected $listeners = [
         'step3Validation'
     ]; 
 
     //Variables from Parent form-wizard for data passing between child and parent
     public $currentStep;
-    public $step3Data;
 
-    //Step-3 Data Attributes
-    public $stlUpper;
-    public $xRayOPG;
-    public $stlLower;
-    public $xRayCEPH;
-    public $rxForm;
-    public $chiefComplaint;
+    public function mount(){
+        $step3Data = session('step3Data');
+        $this->chiefComplaint = $step3Data['chiefComplaint'];
+    }
 
     public function step3Validation(){
         $this->step3Data = $this->validate([
-         'stlUpper' => 'image',
-         'xRayOPG' => 'image',
-         'stlLower' => 'image',
-         'xRayCEPH' => 'image',
-         'rxForm' => 'image',
-         'chiefComplaint' => ''
+            'chiefComplaint' => 'required',
         ]);
 
-        $this->emit('step3Validated');
+        session(['step3Data' => $this->step3Data]);
+
+        $this->emitUp('step3Validated');
     }
     
     public function render()

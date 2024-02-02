@@ -10,12 +10,18 @@ use Livewire\Component;
 
 class CardDetail extends Component
 {   
-    public $card_id;
-    public $card_name;
+    //Variables for Receiving Data from Parent
+    public $cardId;
+    public $cardName;
+
+    //for setting color
     public $bgClass;
 
-    public $casesDetailStageWise;
-    public $casesDetailAll;
+    public $medicalPrimaryCases;
+    public $medicalPrimaryCasesDetail;
+
+    public $casesDetailStageWise = NULL;
+    public $casesDetailAll = NULL;
 
     public $countDoctorCases;
     public $countStages;
@@ -25,33 +31,33 @@ class CardDetail extends Component
         $cardBg = "";
         $cardIcon = "";
         $colorIcon = [];
-        if($this->card_id == 1){
+        if($this->cardId == 1){
             $this->cardBg = "primary";
-            $this->cardIcon = "medkit";
+            $this->cardIcon = "first-aid-kit";
             $colorIcon[0] = $this->cardBg;
             $colorIcon[1] = $this->cardIcon;
         } 
-        else if($this->card_id == 4){
+        else if($this->cardId == 4){
             $this->cardBg = "danger";
             $this->cardIcon = "clock";
             $colorIcon[0] = $this->cardBg;
             $colorIcon[1] = $this->cardIcon;
         }
-        else if($this->card_id == 5){
+        else if($this->cardId == 5){
             $this->cardBg = "info";
             $this->cardIcon = "cloud-arrow-up";
             $colorIcon[0] = $this->cardBg;
             $colorIcon[1] = $this->cardIcon;
         }
-        else if($this->card_id == 6){
+        else if($this->cardId == 6){
             $this->cardBg = "warning";
-            $this->cardIcon = "hourglass-start";
+            $this->cardIcon = "hourglass";
             $colorIcon[0] = $this->cardBg;
             $colorIcon[1] = $this->cardIcon;
         }
-        else if($this->card_id == 7){
+        else if($this->cardId == 7){
             $this->cardBg = "secondary";
-            $this->cardIcon = "truck-fast";
+            $this->cardIcon = "truck";
             $colorIcon[0] = $this->cardBg;
             $colorIcon[1] = $this->cardIcon;
         }
@@ -65,49 +71,49 @@ class CardDetail extends Component
         return $colorIcon;
     }
 
-    public function fetchDoctorCases(){
-        if($this->card_id == 1){
+    public function mount(){
+        $teamId = session('doctorId');
         // $teamId = Auth::id();
-        $teamId = 8949; //its hard code value must be fixed.
-        // $doctorCases = MedicalPrimaryCases::with('MedicalPrimaryCasesDetail')->where(['doctor' => $teamId, 'is_deleted' => 42])->get(['tbl_application_medical_primary_cases.id', 'tbl_application_medical_primary_cases.doctor', 'tbl_application_medical_primary_cases.patient', 'tbl_application_medical_primary_cases.impression_type', 'tbl_application_medical_primary_cases.receive_date', 'tbl_application_medical_primary_cases_details.patient_email', 'tbl_application_medical_primary_cases_details.dentist_case_present_status_id']);
-        $doctorCases = MedicalPrimaryCases::with(['MedicalPrimaryCasesDetail' => function ($query) {
-            $query->select('patient_email', 'dentist_case_present_status_id');
-        }])->where(['doctor' => $teamId, 'is_deleted' => 42])->get(['id', 'doctor', 'patient', 'impression_type', 'receive_date']);
-        // MedicalPrimaryCases::with('MedicalPrimaryCasesDetail')->where(['doctor' => $teamId, 'is_deleted' => 42])->get(['id', 'doctor', 'patient', 'impression_type', 'receive_date']);
-        
-        // dd($doctorCases->toArray());
-        $this->countDoctorCases = $doctorCases->count();
-        $this->casesDetailAll = $doctorCases;
+        if($this->cardId == 1){
+            $doctorCases = MedicalPrimaryCases::with('MedicalPrimaryCasesDetail')->has('MedicalPrimaryCasesDetail')->where(['doctor' => $teamId, 'is_deleted' => 42])->get();
+            $this->countDoctorCases = $doctorCases->count();
+            if($this->countDoctorCases != 0){
+                $this->casesDetailAll = $doctorCases->toArray();
+                // dd($this->casesDetailAll);
+            }else{
+                $this->casesDetailAll = NULL;
+            }
         }
-    }
-    
-    public function fetchProductionStages(){
-        // $teamId = Auth::id();
-        $teamId = 8949; //its hard code value must be fixed.
-        $stageData = MedicalPrimaryCasesDetail::with(['MedicalPrimaryCases' => function($query) use($teamId) {
-            $query->select('id', 'doctor', 'patient', 'impression_type', 'receive_date')->where(['doctor' => $teamId, 'is_deleted' => 42]);
-        }])->where('dentist_case_present_status_id', $this->card_id)->get(['patient_email', 'dentist_case_present_status_id']);
-        $countStages = $stageData->count();
-        // dd($stageData->toArray());
-        $this->countStages = $countStages;
-        $this->casesDetailStageWise = $stageData;
+        else{
+            $this->medicalPrimaryCases = MedicalPrimaryCases::with(['MedicalPrimaryCasesDetail'])
+            ->whereHas('MedicalPrimaryCasesDetail', function ($query) {
+                $query->where(['dentist_case_present_status_id' => $this->cardId]);
+            })
+            ->where(['doctor' => $teamId, 'is_deleted' => 42])
+            ->get();
+            $this->countStages = $this->medicalPrimaryCases->count();
+            if($this->countStages != 0){
+                $this->casesDetailStageWise = $this->medicalPrimaryCases->toArray();
+                // dd($this->casesDetailStageWise);
+            }
+            else{
+                $this->casesDetailStageWise = NULL;
+            }
+        }
     }
 
     public function getCasesData($cId){
         if($cId == 1){
-            $this->fetchDoctorCases();
             $this->emit('casesDetail', $this->casesDetailAll);
         }
         else{
-            $this->fetchProductionStages();
             $this->emit('casesDetail', $this->casesDetailStageWise);
         }
-        $this->emit('cardId', $this->card_id);
+        $this->emit('cardId', $this->cardId);
+        $this->emit('cardName', $this->cardName);
     }
 
     public function render(){
-        $this->fetchDoctorCases();
-        $this->fetchProductionStages();
         $this->bgClass = $this->cardColorAndIcon();
         return view('livewire.dashboard.card-detail');
     }

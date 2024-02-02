@@ -53,6 +53,14 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'remote' => [
+            'driver' => 'sftp',
+            'host' => 'ems.clearpathortho.pk',
+            'username' => 'devcp',
+            'password' => 'xAb6C@^*&!*4RiWsfaXlux',
+            'timeout' => 30,
+        ],
+
     ],
 
     /*

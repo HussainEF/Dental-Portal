@@ -1,23 +1,24 @@
 <div class="row">
     <div class="col-md-12">
         <div class="row">
-            @foreach($caseStagesTitle as $key=>$title)
+            @foreach($stagesTitle as $key=>$title)
                 <div class="col-md-4">
-                    @livewire('dashboard.card-detail', ['card_id' => $title->id, 'card_name' => $title->name], key('title-'.$title->id))
+                    @livewire('dashboard.card-detail', ['cardId' => $title->id, 'cardName' => $title->name], key('title-'.$title->id))
                 </div>
             @endforeach
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{$cardName}}</h5>
+                    </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                        <table id="zero_config"
-                            class="table border table-striped table-bordered text-nowrap">
-                            <thead>
-                                <!-- start row -->
+                        <div class="table-responsive border rounded">
+                            <table class="table">
+                                <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    @if($cardId != 1)<th><i class="ph-hash"></i></th>@endif
                                     <th>Patient Name</th>
                                     <th>Patient Email</th>
                                     <th>Impresson Type</th>
@@ -25,29 +26,41 @@
                                     <th>Registered By</th>
                                     @if($cardId == 1)<th>Impression Recieved</th>@endif
                                 </tr>
-                                <!-- end row -->
-                            </thead>
-                            <tbody>
-                                <!-- start row -->
-                                @if(!empty($casesDetail))
-                                @foreach($casesDetail as $key => $caseData)
-                                <tr>
-                                    <td>{{($cardId == 1) ? $caseData['id'] : "11" }}</td>
-                                    <td>{{($cardId == 1) ? $caseData['patient'] : "Ali" }}</td>
-                                    <td>{{($cardId == 1) ? "" : $caseData['patient_email']}}</td>
-                                    <td>{{($cardId == 1) ? $caseData['impression_type'] : ""}}</td>
-                                    <td>{{($cardId == 1) ? "" : $caseData['dentist_case_present_status_id']}}</td>
-                                    <td>{{($cardId == 1) ? $caseData['receive_date'] : ""}}</td>
-                                    @if($cardId == 1)<td></td>@endif
-                                </tr>
-                                @endforeach
-                                @endif
-                                <!-- end row -->
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <!-- start row -->
+                                    @if($casesDetail!=NULL)
+                                        @foreach($casesDetail as $key => $caseData)
+                                        <tr>
+                                            @if($cardId != 1)<td><a href="{{route('case-detail', ['caseId' => $caseData['id']])}}">{{$caseData['id']}}</a></td>@endif
+                                            <td><a href="{{route('case-detail', ['caseId' => $caseData['id']])}}">{{$caseData['patient']}}</a></td>
+                                            <td><a href="{{route('case-detail', ['caseId' => $caseData['id']])}}">{{$caseData['medical_primary_cases_detail']['patient_email']}}</a></td>
+                                            <td>{{($caseData['impression_type']== 1)? "Physical Impression" : "STL"}}</td>
+                                            <td>
+                                                @foreach($stagesTitle as $title)
+                                                    @if($title->id == $caseData['medical_primary_cases_detail']['dentist_case_present_status_id'])
+                                                        {{$title->name}}
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td>{{$createdBy->name}}</td>
+                                            @if($cardId == 1)<td></td>@endif
+                                        </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td>
+                                                No Record Found.
+                                            </td>
+                                        </tr>
+                                    @endif
+                                    <!-- end row -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+                <!-- /framed card body table -->
             </div>
         </div>
     </div>

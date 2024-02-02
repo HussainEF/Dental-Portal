@@ -1,9 +1,22 @@
 <div class="row mb-3">
+    <style>
+        @font-face {
+            font-family: 'Southam Demo'; /* Correct the font family name */
+            font-style: normal;
+            font-weight: 400;
+            src: local('Southam Demo'), url('{{asset('font/Southam Demo.woff')}}') format('woff');
+        }
+
+        textarea#doctor_signature {
+            font-family: 'Southam Demo', sans-serif; 
+            font-size: 50px;
+        }
+    </style>
     <div class="col-md-3">
         <label for="terms_condition_checkbox_1" class="">Terms & Conditions </label>
     </div>
     <div class="col-md-9">
-        <input id="terms_condition_checkbox_1" data-bs-toggle="modal" data-bs-target="#termsConditionsModal" name="terms_condition" type="checkbox" wire:click="toggleModal">
+        <input name="terms_condition" type="checkbox" data-bs-toggle="modal" data-bs-target="#termsConditionsModal" wire:click="toggleModal">
     </div>
     <!-- Terms and Condition Modal -->
     <div class="modal fade" id="termsConditionsModal" wire:ignore.self>
@@ -16,9 +29,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p style="text-align : justify; font-size : 8pt;"><b></b>
+                    <div class="fs-8"><b></b>
                         <br>
-
                         The following Terms and Conditions Agreement (“Agreement”) constitutes a binding contract between you
                         (“Doctor”) and ClearPath Orthodontics Pvt. Ltd. /ClearPath Manufacturing Pvt. Ltd. By submitting a case to
                         ClearPath Orthodontics Pvt. Ltd. /ClearPath Manufacturing Pvt. Ltd. Doctor agrees to abide by the following Terms
@@ -295,9 +307,39 @@
                         This Agreement shall be construed and governed under and by the governing laws of Pakistan.
                         In case of any dispute between the parties, the matter shall be referred to arbitrators to be appointed by each
                         party.
-                    </p>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <lablel for="signature_text" class="">Enter Signature Name</lable>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="signature_text" class="form-control" wire:model="signature">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <lablel for="doctor_signature">Signature</lable>
+                        </div>
+                        <div class="col-md-6">
+                            <textarea type="text" id="doctor_signature" class="form-control d-flex justify-content-center"></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <script>
+            $('#signature_text').focusout(function(){
+                var doctor_name         = $(this).val();
+                var doctor_signature    = $('#doctor_signature').text(doctor_name);
+            });
+            $("#termsConditionsModal").on("hide.bs.modal", function (e) {
+                // Check if the input field is empty
+                if ($("#signature_text").val() === "") {
+                // If empty, show an alert and prevent the modal from closing
+                alert("Please fill in the input field.");
+                e.preventDefault();
+                }
+            });
+        </script>
     </div>
 </div>

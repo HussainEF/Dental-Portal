@@ -4,36 +4,39 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 use App\Models\MedicalPrimaryCasesDetail;
+use App\Models\DentistLoyalityPointsNotifications;
+
 
 class MedicalPrimaryCases extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $primaryKey = 'id';
     protected $table = "tbl_application_medical_primary_cases";
     protected $fillable=[
         'id',
         'case_id',
-        'sale_representative',	
-        'patient',
-        'age',
-        'gender',	
+        'sale_representative',
+        'patient',//
+        'age',//
+        'gender',	//
         'doctor',
-        'clinic',
-        'receive_date',	
-        'impression_type',	
+        'clinic',//
+        'receive_date',	//
+        'impression_type',//	
         'impression_particulars',	
-        'arch_upper',	
-        'arch_lower',	
-        'radio_graphs_opg',	
-        'radio_graphs_ceph',	
+        'arch_upper',	//
+        'arch_lower',	//
+        'radio_graphs_opg',	//
+        'radio_graphs_ceph',	//
         'bite',	
         'impression_workable_upper',	
         'impression_workable_lower',	
         'intra_extra_oral_pictures',	
-        'country',	
+        'country',
         'city',	
         'area',	
         'address',
@@ -41,18 +44,15 @@ class MedicalPrimaryCases extends Model
         'case_type',	
         'case_type_particulars',	
         'priority',	
-        'nature_of_patient',	
+        'nature_of_patient',	//
         'airway_bill_number',	
-        'description',	
-        'RX_form',	
-        // 'RX_uploaded_by',//deleted	
-        'x_rays_opg',	
-        // 'OPG_uploaded_by',	//deleted
-        'x_rays_ceph',	
-        // 'CEPH_uploaded_by',	//deleted
+        'description',	//
+        'RX_form',	//
+        'x_rays_opg',	//
+        'x_rays_ceph',	//
         'file_assessment',	
-        'stl_1',	
-        'stl_2',	
+        'stl_1',	//
+        'stl_2',	//
         'parent_case',	
         'reboot',	
         'setup_required',	
@@ -75,46 +75,23 @@ class MedicalPrimaryCases extends Model
         'initial_assessment',	
         'initial_assessment_by',	
         'is_expedite',	
-        'adjunctive_attachment',	
+        'adjunctive_attachment',//	
+        'adjunctive_ebt',	//
         'adjunctive_extraction',	
         'adjunctive_expansion',	
-        'adjunctive_ebt',	
         'adjunctive_ipr',	
         'zero_aligner_required',	
-        'is_doable',	
+        // 'is_doable',	
         'status',	
-        // 'approve_status',	//deleted
-        // 'present_case_stage_id',	//deleted
-        // 'hold',	//deleted
-        // 'ship',	//deleted
-        // 'parent_portal_id',	//deleted
-        // 'reboot_comments',	//deleted
-        // 'present_case_status_id',//deleted
-        // 'dentist_id',//deleted
-        // 'dentist_case_present_status_id',//deleted
-        // 'patient_email',	//deleted
-        // 'patient_state',	//deleted
-        // 'patient_country',//deleted
-        // 'patient_city',	//deleted
-        // 'patient_zip_code',	//deleted
-        // 'patient_phone',	//deleted
-        // 'patient_address_1',	//deleted
-        // 'patient_address_2',	//deleted
-        // 'patient_address_3',	//deleted
-        // 'instalment',	//deleted
-        // 'treatment_type',	//deleted
-        // 'allergies',	//deleted
-        // 'pregnant',	//deleted
-        // 'sale_kit',	//deleted
-        // 'full_case_purchase',//deleted	
-        // 'retainer_only',	//deleted
-        // 'imression_received_in_CP',//deleted
-        // 'terms_conditions',	//deleted
-        // 'chief_complaint',//deleted
     ];
 
-    public function MedicalPrimaryCasesDetail(): HasMany
+    public function MedicalPrimaryCasesDetail(): HasOne
     {
-        return $this->hasMany(MedicalPrimaryCasesDetail::class, 'primary_case_id', 'id');
+        return $this->hasOne(MedicalPrimaryCasesDetail::class, 'primary_case_id', 'id');
+    }
+
+    public function DentistLoyalityPointsNotifications(): HasOne
+    {
+        return $this->hasOne(DentistLoyalityPointsNotifications::class, 'primary_case_id', 'id');
     }
 }
