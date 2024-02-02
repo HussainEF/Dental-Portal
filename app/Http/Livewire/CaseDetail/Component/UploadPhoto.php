@@ -4,6 +4,7 @@ namespace App\Http\Livewire\CaseDetail\Component;
 use App\Models\MedicalPrimaryCases;
 use App\Models\MedicalCasesPictures;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Livewire\WithFileUploads;
 use ZipArchive;
@@ -18,7 +19,8 @@ class UploadPhoto extends Component
     
     public $files;
 
-    public $erpCaseId; // For storig erpCaseId from Evenet Listeners.
+    public $caseId;
+    public $erpCaseId;
 
     //for getting Model Instance
     public $medicalCasesPictures;
@@ -33,10 +35,34 @@ class UploadPhoto extends Component
             }
         }
     }
-
-    public function save($files)
-    {
-        dd($files);
+    
+    public function uploadPictures(Request $request){
+        $uploadedFiles = $request->file('data');
+        $caseId = $request->input('caseId');
+        $erpCaseId = $request->input('erpCaseId');
+        $medicalCasesPictures = new MedicalCasesPictures();
+        foreach ($uploadedFiles as $file) {
+            $fileName = now()->format('YmdHis') . '-' . $file->getClientOriginalName();
+            $file->storeAs(CASE_PICTURES_PATH_DIRECTORY_PATH, $fileName, 'public');
+            // Save the file information to the database
+                $id = MedicalCasesPictures::create([
+                    'case_number' => $caseId,
+                    'case_id' => $erpCaseId,
+                    'name' => $fileName,
+                    'picture_portal' => 'Dental',
+                    'is_deletable' => HARD_CODE_ID_YES,
+                    'created' => time(),
+                    'created_by' => session('doctorId'),
+                    'created_by_reference_table' => 'MY_ORGANIZATION_TEAM_TABLE'
+                ]);
+                $id = $id->id;
+                return response()->json([
+                    'success' => true, 
+                    'data' => $this->caseId,
+                ]);
+        }
+      
+        return response()->json(['success' => true]);
     }
 
     public function downloadZip(){

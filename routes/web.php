@@ -13,6 +13,7 @@ use App\Models\MedicalPrimaryCases;
 use App\Models\MedicalCasesPictures;
 
 use Illuminate\Support\Facades\App;
+use App\Http\Livewire\CaseDetail\Component\UploadPhoto;
 
 
 /*
@@ -53,21 +54,22 @@ Route::get('logout', function(){
 });
 
 //Grouping route and Apply Auth Middleware to ensure only Authurized User Can access these routes...
-// Route::post('/oral-pictures-upload', [CaseController::class, 'uploadPictures'])->name('oral-pictures-upload');
-
 Route::group(['middleware' => 'auth'], function () {
     // Routes For Case Detail
     Route::get('/case-detail/{caseId}', [CaseController::class, 'caseDetail'])->name('case-detail');
     Route::get('consent-pdf', function(){
         $data = session('data');
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('livewire.case-detail.component.conscent-form', ['data' => $data]);
+        $pdf->loadView('livewire.case-detail.component.conscent-form', ['data' => $data])->setPaper('a4', 'portrait');
+        $pdf->render();
         return $pdf->stream(); 
     })->name('consent-pdf');
     
     Route::get('/upload-photos/{caseId}', function(){
         return view('cases.upload_photos');
     })->name('upload-photos');
+    Route::post('/upload-photos/oral-pictures-upload', [UploadPhoto::class, 'uploadPictures'])->name('oral-pictures-upload');
+
 
     //Route for Case Add
     Route::get('case-add', [CaseController::class, 'caseAdd']);

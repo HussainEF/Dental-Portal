@@ -16,18 +16,11 @@ class CaseController extends Controller
         return view('cases.case_add');
     }
 
-    public function uploadPictures(Request $request){
-        $file = $request->query('file');
-        return response()->json(['success' => true]);
-    }
-
     //Return the Case Detail of Specific Case Number
     public function caseDetail(Request $data){
         $id = $data['caseId'];
         return view('cases.case_detail', ['caseId' => $id]);
     }
-
-
 
     //Storing the RX form Data into Database and Return the Unique CaseID as a Pop-up
     public function caseSave(Request $request){

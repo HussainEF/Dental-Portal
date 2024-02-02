@@ -98,7 +98,7 @@ class FormWizard extends Component
 
 
                 $primaryCasesDetail->terms_conditions = $step7['termsAndCondition'];
-                // $primaryCasesDetail->created_by = 8949;//Hard coded value;
+                $primaryCasesDetail->created_by = session('doctorId');
                 $primaryCasesDetail->doctor_signature = $step7['doctorSign'];               
                 $primaryCasesDetail->save();
 

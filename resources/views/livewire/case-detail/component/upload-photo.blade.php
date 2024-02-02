@@ -2,9 +2,9 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-md-6 col-sm-6 col-12 d-flex">
-                    <i class="ph-camera mb-0"></i>
-                    <h1 class="mb-0">Manage Pictures<span>(d)</span></h1>
+                <div class="col-md-6 col-sm-6 col-12 d-flex align-items-baseline">
+                    <i class="ph-camera"></i>
+                    <h1 class="mb-0">Manage Pictures<span>(#{{$erpCaseId}})</span></h1>
                 </div>
             </div>
         </div>
@@ -84,7 +84,7 @@
     <script>
         //For Dropzone
         let dropzoneRemove = new Dropzone("#dropzone_remove", {
-            url: 'oral-pictures-upload',
+            url: '/upload-photos/oral-pictures-upload',
             method: 'post',
             uploadMultiple: true,
             createImageThumbnails: true,
@@ -98,7 +98,8 @@
             },
             successmultiple: function (data, response){
                 if (response.success) {
-                    alert("success");
+                    alert(response.data);
+                    
                 } else {
                     // Handle error if needed
                     alert(response.error);

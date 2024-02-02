@@ -89,7 +89,9 @@ class TreatmentPlanAction extends Component
 			            'created_by_reference_table' => 'MY_ORGANIZATION_TEAM_TABLE',
                     ]);
                     $addHistory->save();
-                    $this->sendEmail();
+                    if($this->selectedStatusId == MODIFIED){
+                        $this->sendEmail();
+                    }
                     $this->mount();//When Case is updated then component will be refreshed.
                 }
             }
@@ -121,10 +123,6 @@ class TreatmentPlanAction extends Component
             'cc' => $cc,
         ];
         Mail::send(new SetupModification($data));
-    }
-
-    public function conscentFormPDF(){
-        
     }
 
     public function render()

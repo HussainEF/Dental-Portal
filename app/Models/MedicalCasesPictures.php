@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MedicalCasesPictures extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $primaryKey = "id";
     protected $table = "tbl_application_medical_case_pictures";
     protected $fillable = [

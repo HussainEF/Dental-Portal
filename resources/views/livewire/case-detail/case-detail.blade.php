@@ -8,8 +8,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="container-fluid">
-                    <button class="col-md-2 me-2 btn btn-primary" wire:click="uploadPhoto({{$erpCaseId}})"><i class="fa fa-camera" aria-hidden="true"></i> Photos</button>
-                    <button class="col-md-2 btn btn-primary" wire:click="conscentFormPDF" ><i class="fa fa-file-text" aria-hidden="true"></i> Consent Form</button>
+                    <button class="col-md-2 me-2 btn btn-primary" wire:click="uploadPhoto({{$erpCaseId}})">Photos</button>
+                    <button class="col-md-2 btn btn-primary" wire:click="conscentFormPDF" >Consent Form</button>
                 </div>
             </div>
         </div>

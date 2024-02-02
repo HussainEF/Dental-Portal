@@ -15,8 +15,9 @@ class CaseDetail extends Component
     public $erpCaseId;
 
     //For Data Passing to Conscnet Form
-    public $patient_name;
-    public $patient_email;
+    public $patientName;
+    public $patientEmail;
+    public $doctorSign;
     public $date;
     
     //for getting Model Instance
@@ -26,12 +27,13 @@ class CaseDetail extends Component
     public function mount(){
         $this->primaryCase = MedicalPrimaryCases::find($this->caseId); //Fetching Data from MedicalPrimaryCases 
         if($this->primaryCase != NULL){
-            $this->primaryCaseDetail = $this->primaryCase->PrimaryCaseDetail;
+            $this->primaryCaseDetail = MedicalPrimaryCasesDetail::where(['primary_case_id' => $this->primaryCase['id']])->first();
             if($this->primaryCaseDetail != NULL){
-                $this->patient_email = $this->primaryCaseDetail['patient_email'];
+                $this->patientEmail = $this->primaryCaseDetail['patient_email'];
+                $this->doctorSign = $this->primaryCaseDetail['doctor_signature'];
+                $this->date = $this->primaryCaseDetail['created_at'];
             }
-            $this->patient_name = $this->primaryCase['name'];
-            $this->date = $this->primaryCase['created_at'];
+            $this->patientName = $this->primaryCase['patient'];
             $this->checkCaseExsisting = 1; //Check the Case Existing and Setting the Flag Value Upon the Exisiting of Case.
             $this->erpCaseId = $this->primaryCase['case_id'];
         }
@@ -41,18 +43,9 @@ class CaseDetail extends Component
         // dd($this->primaryCase);
     }
 
-    public function searchCaseDetail($caseId){
-        $this->caseId = $caseId;
-        $this->mount();
-    }
-    
-    public function caseIdRecieved(){
-        $this->flag = 1;
-    }
-
     public function conscentFormPDF()
     {
-        $data = ['name' => $this->patient_name, 'email' => $this->patient_email, 'date' => $this->date];
+        $data = ['name' => $this->patientName, 'email' => $this->patientEmail, 'date' => $this->date, 'sign' => 'mudassar'];
         return redirect()->route('consent-pdf')->with(['data' => $data]);
     }
 

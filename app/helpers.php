@@ -27,6 +27,8 @@ define('MEDICAL_STL_PATH_DIRECTORY_PATH', 'https://portal.clearpathortho.pk/stl/
 /* Folder Name Constant */
 //Oral Pictures Folder Path
 define('CASE_PICTURES_URL_PATH','pictures_cases/');
+define('CASE_PICTURES_PATH_DIRECTORY_PATH', 'pictures_cases/');
+
 //Attachment Pictures Folder Path 
 define('CASE_RX_FORM_URL_PATH', 'rx/');
 define('CASE_X_RAY_OPG_URL_PATH', 'x_rays/opg');

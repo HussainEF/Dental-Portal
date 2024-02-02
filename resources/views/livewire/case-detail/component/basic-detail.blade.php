@@ -1,12 +1,12 @@
 <div>
     <div class="card">
         <div class="card-header">
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-12 d-flex">
+            <div class="row d-flex align-items-baseline">
+                <div class="col-md-6 col-sm-6 col-12 d-flex align-items-baseline">
                     <i class="ph-first-aid-kit"></i>
-                    <h1 class="mb-0">Case</h1>
+                    <h1 class="mb-0 ms-2">Case</h1>
                 </div>
-                <div class="col-md-6 col-sm-6 col-12 d-flex justify-content-end">
+                <div class="col-md-6 col-sm-6 col-12 d-flex align-items-baseline justify-content-end">
                     <i class="ph-hash"></i>
                     <h3 class="mb-0">{{$primaryCase['case_id']}}</h3>
                 </div>
